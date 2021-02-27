@@ -8,29 +8,22 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Decks from "./Decks";
-import Deck from "./Deck";
+import DeckInfo from "./DeckInfo";
 import AddCardToDeck from "./AddCardToDeck";
+import DeckQuiz from "./DeckQuiz";
 import AddDeck from "./AddDeck";
 
 
 const DecksStack = createStackNavigator();
-const AddDeckStack = createStackNavigator();
 
 const DecksStackScreen = () => {
     return (
         <DecksStack.Navigator>
             <DecksStack.Screen name="Decks" component={Decks} />
-            <DecksStack.Screen name="Deck" component={Deck} />
+            <DecksStack.Screen name="DeckInfo" component={DeckInfo} />
             <DecksStack.Screen name="AddCardToDeck" component={AddCardToDeck} />
+            <DecksStack.Screen name="DeckQuiz" component={DeckQuiz} />
         </DecksStack.Navigator>
-    );
-}
-
-const AddDeckStackScreen = () => {
-    return (
-        <AddDeckStack.Navigator>
-            <AddDeckStack.Screen name="AddDeck" component={AddDeck} />
-        </AddDeckStack.Navigator>
     );
 }
 
@@ -63,7 +56,7 @@ class AppContainer extends React.Component {
                         })}
                     >
                         <Tabs.Screen name="Decks" component={DecksStackScreen} />
-                        <Tabs.Screen name="AddDeck" component={AddDeckStackScreen} />
+                        <Tabs.Screen name="AddDeck" component={AddDeck} />
                     </Tabs.Navigator>
                 </NavigationContainer>
             </View>

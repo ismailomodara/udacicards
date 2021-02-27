@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { View, Text, Button } from 'react-native'
 
-class AddCardToDeck extends Component {
+class DeckInfo extends Component {
     render() {
+        const { deckId } = this.props.route.params
         return (
             <View>
-                <Text>AddCardToDeck</Text>
+                <Text>This is Deck {deckId}</Text>
                 <Button
-                    title="Add"
+                    title="Add Card"
                     onPress={() => this.props.navigation.navigate(
-                        'DeckInfo',
+                        'AddCardToDeck',
                         { deckId: 2 }
                     )}
                 />
@@ -18,4 +19,4 @@ class AddCardToDeck extends Component {
     }
 }
 
-export default AddCardToDeck
+export default DeckInfo

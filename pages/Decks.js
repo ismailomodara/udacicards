@@ -1,11 +1,25 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { Button, View, Text } from 'react-native'
 
 class Decks extends Component {
     render() {
         return (
             <View>
-                <Text>Decks</Text>
+                <Text>All Decks</Text>
+                <Button
+                    title="Deck 1"
+                    onPress={() => this.props.navigation.navigate(
+                        'DeckInfo',
+                        { deckId: 1 }
+                    )}
+                />
+                <Button
+                    title="Deck 2"
+                    onPress={() => this.props.navigation.navigate(
+                        'DeckInfo',
+                        { deckId: 2 }
+                    )}
+                />
             </View>
         )
     }
