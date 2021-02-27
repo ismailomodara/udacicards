@@ -2,7 +2,7 @@
   "main": "index.js",
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "c",
     "web": "expo start --web",
     "start": "react-native start",
     "test": "jest"
