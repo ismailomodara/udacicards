@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';

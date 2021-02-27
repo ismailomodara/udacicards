@@ -1,28 +1,42 @@
 import React, { Component } from 'react'
-import { Button, View, Text } from 'react-native'
+import {View, StyleSheet} from 'react-native'
+import Deck from "../components/Deck";
+
+import { getDecks } from "../utils/api";
+import { receiveDecks } from "../actions";
+import { connect } from 'react-redux'
 
 class Decks extends Component {
+    componentDidMount () {
+        const { dispatch } = this.props
+
+        getDecks()
+            .then((decks) => dispatch(receiveDecks(decks)))
+    }
+
     render() {
+        const { decks } = this.props
+        
         return (
-            <View>
-                <Text>All Decks</Text>
-                <Button
-                    title="Deck 1"
-                    onPress={() => this.props.navigation.navigate(
-                        'DeckInfo',
-                        { deckId: 1 }
-                    )}
-                />
-                <Button
-                    title="Deck 2"
-                    onPress={() => this.props.navigation.navigate(
-                        'DeckInfo',
-                        { deckId: 2 }
-                    )}
-                />
+            <View style={styles.container}>
+                {Object.keys(decks).map(deck => <Deck key={deck} deck={decks[deck]} />)}
             </View>
         )
     }
 }
 
-export default Decks
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#fff'
+    }
+})
+
+function mapStateToProps (decks) {
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps)(Decks)
