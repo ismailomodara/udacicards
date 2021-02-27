@@ -30,3 +30,6 @@ Web: `react-native start`
 Android: `react-native run-android`
 
 iOS: `react-native run-ios`
+
+## Platforms Test
+1. Android Emulator
