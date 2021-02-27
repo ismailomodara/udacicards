@@ -10,7 +10,6 @@ export function getDecks () {
 export function getDeck (deckId) {
     return new Promise(async (resolve, reject) => {
         const decks = await getDecks();
-        console.log(decks[deckId])
         resolve(decks[deckId]);
     })
 }
@@ -20,8 +19,8 @@ export function saveDeckTitle (payload) {
 }
 
 
-export function addCardToDeck ({ deckId, card }) {
-    const currentDecks = this.getDecks()
+export const addCardToDeck = async  ({ deckId, card }) => {
+    const currentDecks = await getDecks()
     const decks = {
         ...currentDecks,
         [deckId]: {

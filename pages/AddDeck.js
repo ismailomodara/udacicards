@@ -23,9 +23,10 @@ class AddDeck extends Component {
                 questions: []
             }
         }
-        this.props.dispatch(addDeck(payload))
         saveDeckTitle(payload)
-        this.props.navigation.navigate('Decks')
+        this.props.dispatch(addDeck(payload)).then(() => {
+            this.props.navigation.navigate('Decks')
+        })
 
         this.setState(() => ({
             deckTitle: ''

@@ -13,9 +13,13 @@ function decks (state = {}, action) {
         ...action.deck
       }
     case ADD_CARD :
+      const { deckId, card } = action.payload
       return {
         ...state,
-        ...action.card
+        [deckId]: {
+          ...state[deckId],
+          questions: state[deckId].questions.concat(card)
+        }
       }
     default :
       return state

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { addCard } from '../actions'
-import { addCardToDeck } from '../utils/api'
+import {addCard} from '../actions'
+import {addCardToDeck} from '../utils/api'
 
 class AddCardToDeck extends Component {
     state = {
@@ -24,17 +24,16 @@ class AddCardToDeck extends Component {
 
     addCard = () => {
         const { question, answer } = this.state
-        const { deckId } = this.props
+        const { deckId } = this.props.route.params
 
-        const payload = {
+        const card = {
             question,
             answer
         }
-        this.props.dispatch(addCard(payload))
-        addCardToDeck(payload)
-        this.props.navigation.navigate(
-            'DeckInfo',
-            { deckId })
+
+        addCardToDeck({ deckId, card })
+        this.props.dispatch(addCard({ deckId, card }))
+        this.props.navigation.navigate('DeckInfo', { deckId })
 
         this.setState(() => ({
             question: '',

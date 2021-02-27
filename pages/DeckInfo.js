@@ -1,34 +1,13 @@
 import React, { Component } from 'react'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
-import {getDeck} from "../utils/api";
+import { connect } from 'react-redux'
 
 class DeckInfo extends Component {
 
-    state = {
-        loading: true,
-        deck: {}
-    }
-
-    componentDidMount () {
-        const { deckId } = this.props.route.params
-        getDeck(deckId).then((deck) => {
-            this.setState(() => ({
-                deck: deck,
-                loading: false
-            }))
-        })
-    }
-
     render() {
-
-        const { loading, deck } = this.state
-        if(loading) {
-            return (
-                <View>
-                    <Text>Loading</Text>
-                </View>
-            )
-        }
+        const { deckId } = this.props.route.params
+        const { decks, navigation } = this.props
+        const deck = decks[deckId]
 
         return (
             <View style={styles.container}>
@@ -37,7 +16,11 @@ class DeckInfo extends Component {
                     <Text style={styles.subtitle}>{deck.questions.length} cards</Text>
                 </View>
                 <TouchableOpacity
-                    style={styles.button}>
+                    style={styles.button}
+                    onPress={() => navigation.navigate(
+                        'AddCardToDeck',
+                        { deckId: deck.title }
+                    )}>
                     <Text style={styles.buttonText}>Add Card</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -90,4 +73,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DeckInfo
+function mapStateToProps (decks) {
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps)(DeckInfo)
