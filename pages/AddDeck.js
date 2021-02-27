@@ -30,7 +30,7 @@ class AddDeck extends Component {
             }))
             saveDeckTitle(payload)
             this.props.dispatch(addDeck(payload))
-            this.props.navigation.navigate('Decks')
+            this.props.navigation.navigate('DeckInfo', { deckId: deckTitle })
         } else {
             alert("You need to enter a deck title.")
         }
