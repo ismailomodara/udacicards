@@ -1,27 +1,35 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function getDecks () {
-    return AsyncStorage.getItem('DECKS')
-        .then((decks) => {
-            return JSON.parse(decks)
-        })
+    return new Promise(async (resolve, reject) => {
+        const decks = await AsyncStorage.getItem("DECKS");
+        resolve({...JSON.parse(decks)});
+    });
 }
 
 export function getDeck (deckId) {
-    return this.getDecks().then((decks) => {
-        return decks[deckId]
+    return new Promise(async (resolve, reject) => {
+        const decks = await getDecks();
+        console.log(decks[deckId])
+        resolve(decks[deckId]);
     })
 }
 
-export function submitDeck (payload) {
+export function saveDeckTitle (payload) {
     return AsyncStorage.mergeItem('DECKS', JSON.stringify(payload))
 }
 
 
 export function addCardToDeck ({ deckId, card }) {
-    return AsyncStorage.mergeItem('DECKS', JSON.stringify({
-        [deckId]: card
-    }))
+    const currentDecks = this.getDecks()
+    const decks = {
+        ...currentDecks,
+        [deckId]: {
+            ...currentDecks[deckId],
+            questions: currentDecks[deckId].questions.concat(card)
+        }
+    }
+    return AsyncStorage.mergeItem('DECKS', JSON.stringify(decks))
 }
 
 export function removeEntry (key) {

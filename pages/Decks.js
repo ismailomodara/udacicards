@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, TouchableOpacity } from 'react-native'
 import Deck from "../components/Deck";
 
 import { getDecks } from "../utils/api";
@@ -15,11 +15,21 @@ class Decks extends Component {
     }
 
     render() {
-        const { decks } = this.props
+        const { decks, navigation  } = this.props
         
         return (
             <View style={styles.container}>
-                {Object.keys(decks).map(deck => <Deck key={deck} deck={decks[deck]} />)}
+                {Object.keys(decks).map(deck =>
+                    <TouchableOpacity
+                        key={deck}
+                        onPress={() => navigation.navigate(
+                            'DeckInfo',
+                            { deckId: deck }
+                        )}
+                    >
+                        <Deck deck={decks[deck]} />
+                    </TouchableOpacity>
+                    )}
             </View>
         )
     }

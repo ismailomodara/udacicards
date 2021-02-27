@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
-import { submitDeck } from '../utils/api'
+import { saveDeckTitle } from '../utils/api'
 
 class AddDeck extends Component {
     state = {
@@ -24,7 +24,7 @@ class AddDeck extends Component {
             }
         }
         this.props.dispatch(addDeck(payload))
-        submitDeck(payload)
+        saveDeckTitle(payload)
         this.props.navigation.navigate('Decks')
 
         this.setState(() => ({

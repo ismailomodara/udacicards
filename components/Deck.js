@@ -1,26 +1,20 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 class Deck extends Component {
     render() {
-        const deck = this.props.deck
+        const { deck } = this.props
         return (
-            <TouchableOpacity
-                onPress={() => this.props.navigation.navigate(
-                    'DeckInfo',
-                    { deckId: deck.title }
-                )}>
-                <View style={styles.deck}>
-                    <View>
-                        <Text style={styles.title}>{deck.title}</Text>
-                        <Text style={styles.subtitle}>{deck.questions.length} cards</Text>
-                    </View>
-                    <View>
-                        <Ionicons name={'tablet-portrait'} size={32} color={'#4b8a29'} />
-                    </View>
+            <View style={styles.deck}>
+                <View>
+                    <Text style={styles.title}>{deck.title}</Text>
+                    <Text style={styles.subtitle}>{deck.questions.length} cards</Text>
                 </View>
-            </TouchableOpacity>
+                <View>
+                    <Ionicons name={'tablet-portrait'} size={32} color={'#4b8a29'} />
+                </View>
+            </View>
         )
     }
 }
