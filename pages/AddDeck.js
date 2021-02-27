@@ -17,20 +17,26 @@ class AddDeck extends Component {
 
     addDeck = () => {
         const { deckTitle } = this.state
-        const payload = {
-            [deckTitle]: {
-                title: deckTitle,
-                questions: []
-            }
-        }
-        saveDeckTitle(payload)
-        this.props.dispatch(addDeck(payload)).then(() => {
-            this.props.navigation.navigate('Decks')
-        })
 
-        this.setState(() => ({
-            deckTitle: ''
-        }))
+        if(deckTitle) {
+            const payload = {
+                [deckTitle]: {
+                    title: deckTitle,
+                    questions: []
+                }
+            }
+            this.setState(() => ({
+                deckTitle: ''
+            }))
+            saveDeckTitle(payload)
+            this.props.dispatch(addDeck(payload))
+            this.props.navigation.navigate('Decks')
+        } else {
+            alert("You need to enter a deck title.")
+        }
+
+
+
     }
 
     render() {
@@ -55,6 +61,7 @@ class AddDeck extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: 'center',
         padding: 20,
         backgroundColor: '#fff'
     },

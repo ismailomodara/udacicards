@@ -1,17 +1,41 @@
 import React, { Component } from 'react'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { deleteDeck } from "../utils/api";
+import { removeDeck } from "../actions";
 
 class DeckInfo extends Component {
+
+    startQuiz = (deckId, canTakeQuiz) => {
+        if(canTakeQuiz) {
+            this.props.navigation.navigate('DeckQuiz', { deckId })
+        } else {
+            alert("You cannot take Quiz because there are cards in this Deck.")
+        }
+    }
+
+    removeDeck = (deckId) => {
+        this.props.navigation.navigate('Decks')
+        deleteDeck(deckId)
+        this.props.dispatch(removeDeck(deckId))
+    }
 
     render() {
         const { deckId } = this.props.route.params
         const { decks, navigation } = this.props
         const deck = decks[deckId]
 
+        if(!deck) {
+            return <View></View>
+        }
         return (
             <View style={styles.container}>
                 <View style={styles.deck}>
+                    <TouchableOpacity
+                        onPress={() => this.removeDeck(deck.title)}>
+                        <Ionicons style={{textAlign: 'right'}} name={'trash'} size={32} color={'#4b8a29'} />
+                    </TouchableOpacity>
                     <Text style={styles.title}>{deck.title}</Text>
                     <Text style={styles.subtitle}>{deck.questions.length} cards</Text>
                 </View>
@@ -24,7 +48,8 @@ class DeckInfo extends Component {
                     <Text style={styles.buttonText}>Add Card</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={[styles.button, {backgroundColor: 'black' }]}>
+                    style={[styles.button, {backgroundColor: 'black' }]}
+                    onPress={() => this.startQuiz(deck.title, deck.questions.length)}>
                     <Text style={styles.buttonText}>Start Quiz</Text>
                 </TouchableOpacity>
             </View>
@@ -42,6 +67,7 @@ const styles = StyleSheet.create({
     deck: {
         height: 200,
         justifyContent: "center",
+        paddingRight: 15,
         marginBottom: 15,
         borderRadius: 8,
         backgroundColor: '#d6efc8',
@@ -50,7 +76,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: "bold",
         textAlign: "center",
-        marginBottom: 10
+        marginBottom: 7
     },
     subtitle: {
         fontSize: 18,

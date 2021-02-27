@@ -31,11 +31,11 @@ export const addCardToDeck = async  ({ deckId, card }) => {
     return AsyncStorage.mergeItem('DECKS', JSON.stringify(decks))
 }
 
-export function removeEntry (key) {
+export function deleteDeck (key) {
     return AsyncStorage.getItem('DECKS')
-        .then((decks) => {
-            const data = JSON.parse(decks)
-            delete data[key]
-            AsyncStorage.setItem('DECKS', JSON.stringify(data))
+        .then((allDecks) => {
+            const newDecks = JSON.parse(allDecks)
+            delete newDecks[key]
+            AsyncStorage.setItem('DECKS', JSON.stringify(newDecks))
         })
 }
