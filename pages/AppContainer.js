@@ -1,12 +1,12 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
+import { PRIMARY_COLOR, PRIMARY_COLOR_TINT, WHITE, TAB_FOCUS } from "../utils/colors";
 import Decks from "./Decks";
 import DeckInfo from "./DeckInfo";
 import AddCardToDeck from "./AddCardToDeck";
@@ -36,9 +36,9 @@ class AppContainer extends React.Component {
                 <NavigationContainer>
                     <Tabs.Navigator
                         initialRouteName="Home"
-                        activeColor="#f0edf6"
-                        inactiveColor="#f7fcf4"
-                        barStyle={{ backgroundColor: '#4b8a29' }}
+                        activeColor={TAB_FOCUS}
+                        inactiveColor={PRIMARY_COLOR_TINT}
+                        barStyle={{ backgroundColor: PRIMARY_COLOR }}
                         screenOptions={({ route }) => ({
                             tabBarIcon: ({ focused }) => {
                                 let iconName;
@@ -51,7 +51,7 @@ class AppContainer extends React.Component {
                                     iconName = focused ? 'add-circle' : 'add-circle-outline';
                                 }
 
-                                return <Ionicons name={iconName} size={24} color={focused ? 'white' : '#f7fcf4'} />;
+                                return <Ionicons name={iconName} size={24} color={focused ? WHITE : PRIMARY_COLOR_TINT} />;
                             },
                         })}
                     >

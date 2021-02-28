@@ -1,4 +1,10 @@
-export const purple = '#292477'
+export const PRIMARY_COLOR = '#4b8a29'
+export const PRIMARY_COLOR_TINT = '#f7fcf4'
+export const WHITE = '#ffffff'
+
+export const TAB_FOCUS = '#f0edf6'
+
+
 export const gray = '#757575'
 export const white = '#fff'
 export const red = '#b71845'

@@ -22,11 +22,14 @@ function decks (state = {}, action) {
         }
       }
     case REMOVE_DECK :
-      const decks = { ...state }
-      delete decks[action.deckId]
+      const decks = Object.keys(state)
+          .filter(key => key !== action.deckId)
+          .reduce((obj, key) => {
+            obj[key] = state[key];
+            return obj;
+          }, {});
       return {
         ...decks
-
       }
     default :
       return state
