@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableOpacity, ScrollView, View, Text} from 'react-native'
+import { StyleSheet, TouchableOpacity, FlatList, View, Text} from 'react-native'
 import Deck from "../components/Deck";
 
 import { getDecks } from "../utils/api";
@@ -14,10 +14,24 @@ class Decks extends Component {
             .then((decks) => dispatch(receiveDecks(decks)))
     }
 
+    goToDeck = (deckId) =>{
+        this.props.navigation.navigate("DeckInfo", { deckId })
+    }
+
+    renderItem = ({ item }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => this.goToDeck(item.title)}
+            >
+                <Deck deck={item} />
+            </TouchableOpacity>
+        )
+    }
+
     render() {
         const { decks, navigation  } = this.props
 
-        if(!Object.keys(decks).length) {
+        if(!decks.length) {
             return (
                 <View style={styles.emptyContainer}>
                     <Text style={styles.text}>No deck found!</Text>
@@ -33,19 +47,12 @@ class Decks extends Component {
             )
         }
         return (
-            <ScrollView style={styles.container}>
-                {Object.keys(decks).map(deck =>
-                    <TouchableOpacity
-                        key={deck}
-                        onPress={() => navigation.navigate(
-                            'DeckInfo',
-                            { deckId: deck }
-                        )}
-                    >
-                        <Deck deck={decks[deck]} />
-                    </TouchableOpacity>
-                    )}
-            </ScrollView>
+            <FlatList
+                style={styles.container}
+                data={decks}
+                renderItem={this.renderItem}
+                keyExtractor={item => item.title}>
+            </FlatList>
         )
     }
 }
@@ -91,8 +98,15 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (decks) {
+    const decksAsArray = Object.keys(decks).map(deck => {
+        return {
+            title: decks[deck].title,
+            questions: decks[deck].questions
+        }
+    })
+
     return {
-        decks
+        decks: decksAsArray
     }
 }
 

@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 class Deck extends Component {
     render() {
+        console.log(this.props)
         const { deck } = this.props
         return (
             <View style={styles.deck}>
