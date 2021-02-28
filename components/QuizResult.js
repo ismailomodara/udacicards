@@ -1,27 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { clearLocalNotification, setLocalNotification } from "../utils/notifications";
 
-const QuizResult = (props) =>  {
-    const { correctAnswers, total, reset, quit } = props
-    return (
-        <View style={styles.container}>
-            <Text
-                style={styles.info}>
-                Your result
-            </Text>
-            <Text style={styles.result}>{correctAnswers} / {total}</Text>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => reset()}>
-                <Text style={styles.buttonText}>Start Over</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={[styles.button, {backgroundColor: 'black' }]}
-                onPress={() => quit()}>
-                <Text style={styles.buttonText}>Quit</Text>
-            </TouchableOpacity>
-        </View>
-    )
+class QuizResult extends Component  {
+    componentDidMount() {
+        clearLocalNotification()
+            .then(setLocalNotification)
+    }
+
+    render() {
+        const { correctAnswers, total, reset, quit } = this.props
+        return (
+            <View style={styles.container}>
+                <Text
+                    style={styles.info}>
+                    Your result
+                </Text>
+                <Text style={styles.result}>{correctAnswers} / {total}</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => reset()}>
+                    <Text style={styles.buttonText}>Start Over</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.button, {backgroundColor: 'black' }]}
+                    onPress={() => quit()}>
+                    <Text style={styles.buttonText}>Quit</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

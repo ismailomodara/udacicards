@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import {View, Text} from 'react-native'
 import { connect } from 'react-redux'
 import QuizQuestions from "../components/QuizQuestions";
 import QuizResult from "../components/QuizResult";
-import {addCardToDeck} from "../utils/api";
 
 class DeckQuiz extends Component {
 
@@ -37,6 +35,7 @@ class DeckQuiz extends Component {
 
     nextQuestion = () => {
         this.setState((state) => ({
+            showing: 'question',
             currentQuestion: state.currentQuestion + 1
         }))
     }
